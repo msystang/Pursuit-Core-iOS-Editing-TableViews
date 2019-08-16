@@ -41,7 +41,7 @@ extension ShoppingItemsViewController: UITableViewDelegate, UITableViewDataSourc
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
         
         cell.textLabel?.text = item.name
-        cell.detailTextLabel?.text = String(item.price)
+        cell.detailTextLabel?.text = "$\(item.price)"
         return cell
     }
     
