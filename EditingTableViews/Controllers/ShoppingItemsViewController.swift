@@ -19,6 +19,8 @@ import UIKit
 
 class ShoppingItemsViewController: UIViewController {
     
+    let items = ShoppingItemFetchingClient.getShoppingItems()
+    
     @IBOutlet weak var itemsTable: UITableView!
     
     override func viewDidLoad() {
@@ -31,11 +33,16 @@ class ShoppingItemsViewController: UIViewController {
 
 extension ShoppingItemsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = items[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
         
+        cell.textLabel?.text = item.name
+        cell.detailTextLabel?.text = String(item.price)
+        return cell
     }
     
     
