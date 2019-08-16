@@ -19,29 +19,41 @@ import UIKit
 
 class ShoppingItemsViewController: UIViewController {
     
-    let items = ShoppingItemFetchingClient.getShoppingItems()
+    var shoppingItems = [ShoppingItem]()
     
     @IBOutlet weak var itemsTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        itemsTable.delegate = self
-        itemsTable.dataSource = self
-
+        loadShoppingItems()
+        configureShoppingItemsTableView()
     }
+    
+    private func loadShoppingItems() {
+        let allItems = ShoppingItemFetchingClient.getShoppingItems()
+        shoppingItems = allItems
+    }
+    
+    private func configureShoppingItemsTableView() {
+        itemsTable.dataSource = self
+        itemsTable.delegate = self
+    }
+
+    
 }
 
 extension ShoppingItemsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return shoppingItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = items[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "itemCell", for: indexPath)
+        let item = shoppingItems[indexPath.row]
         
         cell.textLabel?.text = item.name
         cell.detailTextLabel?.text = "$\(item.price)"
+//        cell.detailTextLabel?.text = item.price.description (custom string convertable)
         return cell
     }
     
