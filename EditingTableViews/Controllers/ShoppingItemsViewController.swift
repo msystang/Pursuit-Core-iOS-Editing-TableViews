@@ -18,19 +18,24 @@ private func configureShoppingItemsTableView() {
 import UIKit
 
 class ShoppingItemsViewController: UIViewController {
+    
+    @IBOutlet weak var itemsTable: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        itemsTable.delegate = self
+        itemsTable.dataSource = self
 
     }
 }
 
 extension ShoppingItemsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        <#code#>
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        <#code#>
+        
     }
     
     
